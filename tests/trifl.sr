@@ -1,0 +1,42 @@
+        .TITL   TRIFL
+
+               ;    I'm going to use this little trifle to test the
+               ; comparative speeds of the various DG processors I have in
+               ; my collection.
+               ;
+               ;    The overall logic is simple enough to qualify as almost
+               ; brain-dead. We'll go ahead and zap AC0 (in case it isn't
+               ; already) and increment it by one until it overflows back to
+               ; zero. When that happens, we'll bump another (negative)
+               ; value until it, too, goes to zero; at that point,
+               ; we'll call it quits and halt.
+
+               ;    The object will be to measure, by eyeball-and-wristwatch,
+               ; the amount of time the whole thing runs for.
+               
+               ; The bulk of this was written by Carl R. Friend. Emil Sarlija
+               ; added the first two instructions to allow it to be loaded and
+               ; run from loaction 0100. Many thanks to Carl for his permission
+               ; to include his work. :-)
+
+        .LOC 100               ; Set PC to zero
+
+START:  LDA	0,COUNT
+	STA	0,20
+	SUBO    0,0          ; Zap AC0 for the initial loop
+LOOP:   INC     0,0,SZR      ; Bump AC0 until it wraps
+        JMP     LOOP         ; Keep going....
+
+;    When we get here, AC0 has been incremented 2^16 times
+; (65,536). This should make for a good delay test.
+
+        LDA     1,20      ; Load the loop count
+        INC     1,1,SNR      ; and bump it; skip if not done.
+        HALT                 ; We're done - stop the CPU
+        STA     1,20     ; Save the current loop count and
+        JMP     LOOP         ; go back and do it again....
+
+               ; Set PC to 20 (for convenience)
+COUNT:  -256   ; Loop count
+
+        .END	START

@@ -1,0 +1,45 @@
+README
+
+Here are some small programs that you can assemble and run on the simulator.
+I've been using them to make sure certain features were working properly and
+have included them here for your fun and enjoyment.
+
+For a really cool Nova cross assembler, go to:
+
+	http://www.telegraphics.com.au/sw/info/dpa.html
+	
+This is what I've been using to assemble these programs with. To try it
+yourself, I've included a "Hello World" program called hello.sr amongst others.
+After compiling and installing the assembler, assemble hello.sr by typing:
+
+	dga -l -b hello.sr
+	
+This will create two new files caled hello.sr.lst and hello.sr.boot
+which are the listing and bootstrap binary respectively. Load hello.sr.boot into
+nd by typing:
+
+	nd hello.sr.boot
+	
+after which you'll be prompted to either run, single step, and examine or
+disassemble memory.
+
+Whahooo!!!
+
+One thing I learn't is a lot can be tested with "Hello World" programs.
+
+FILES:
+
+hello.sr -	A "Hello World" program.
+
+helsub.sr -	Another "Hello World" program but this one uses the stack for
+		the subroutine.
+		
+helinc.sr -	Yet another "Hello World" program but this one uses an auto 
+		incrementing memory location.
+		
+heldec.sr -	As above, but this time auto decrementing. This one was a
+		nightmare in creating the message due to the way the bytes are
+		packed. 
+		
+trifl.sr -	Courtesy of Carl R. Friend. A timing loop. Takes 30 seconds to
+		run on a real Nova 3.

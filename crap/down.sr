@@ -1,0 +1,16 @@
+        .TITL   DOWN
+
+               ; Test the auto decrement location 30
+
+        .LOC 100
+        
+START:  LDA	0,COUNT
+	STA	0,30
+
+LOOP:   DSZ     30           ; and bump it skip if not done.
+        JMP     LOOP         ; go back and do it again....
+        HALT                 ; We're done - stop the CPU
+
+COUNT:  400   ; Loop count (decimal 256)
+
+        .END	START

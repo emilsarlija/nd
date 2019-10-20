@@ -1,0 +1,43 @@
+02              	; print "Hello, world" on teletype output
+03              	; using device I/O instructions
+06              	.titl hello
+07              	.loc 100
+09              start:	
+10 00100 022115 dochar:	lda 0,@pmsg	; load ac0 with next word,
+10 00101 101015 	mov# 0,0,snr
+11              	; test ac0; skip if nonzero
+12 00102 000110 	jmp done
+13 00103 004111 	jsr putc	; output first char of word
+14 00104 101300 	movs 0,0	; swap bytes
+15 00105 004111 	jsr putc	; output second char of word
+16 00106 010115 	isz pmsg	; point to next word
+17 00107 000100 	jmp dochar	; go around again
+19 00110 063077 done:	halt
+21 00111 063511 putc:	skpbz tto	; is tty busy?
+22 00112 000111 	jmp .-1		; loop until not busy
+23 00113 061111 	doas 0,tto	; output char in ac0
+24 00114 001400 	jmp 0,3		; return from subroutine
+26 00115 000116 pmsg:	.+1
+27              	; note bytes are packed right-to-left by default
+27 00116 062510 	.txt /Hello, world!<15><12>/ ; that's CR, LF
+27       066154 
+27       026157 
+27       073440 
+27       071157 
+27       062154 
+27       036041 
+27       032461 
+27       036076 
+27       031061 
+27       000076 
+27       000000 
+29 00132 000000 	0 ; flag word to end string
+30              	
+31              	.end start
+
+DOCHAR 000100        1/08
+DONE   000110        1/17
+HELLO  000000?       1/04
+PMSG   000115        1/24
+PUTC   000111        1/19
+START  000100        1/07

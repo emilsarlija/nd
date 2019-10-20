@@ -1,0 +1,52 @@
+02              	; print "Hello, world" on teletype output
+03              	; using device I/O instructions and auto increment memory
+06              	.titl helinc
+07              	.loc 100
+09 00100 020117 start:	lda 0,pmsg	; load address of beginning of string
+10 00101 040020 	sta 0,20	; store in an auto incrementing location
+11 00102 022020 dochar:	lda 0,@20	; load ac0 with next word,
+11 00103 101015 	mov# 0,0,snr
+12              	; test ac0; skip if nonzero
+13 00104 000112 	jmp done
+14 00105 004113 	jsr putc	; output first char of word
+15 00106 101300 	movs 0,0	; swap bytes
+16 00107 004113 	jsr putc	; output second char of word
+17 00110 010117 	isz pmsg	; point to next word
+18 00111 000102 	jmp dochar	; go around again
+20 00112 063077 done:	halt
+22 00113 063511 putc:	skpbz tto	; is tty busy?
+23 00114 000113 	jmp .-1		; loop until not busy
+24 00115 061111 	doas 0,tto	; output char in ac0
+25 00116 001400 	jmp 0,3		; return from subroutine
+27 00117 000117 pmsg:	.+0
+28              	; note bytes are packed right-to-left by default
+28 00120 062510 	.txt /Hello, world! I'm auto incrementing!<15><12>/ ; that's CR, LF
+28       066154 
+28       026157 
+28       073440 
+28       071157 
+28       062154 
+28       020041 
+28       023511 
+28       020155 
+28       072541 
+28       067564 
+28       064440 
+28       061556 
+28       062562 
+28       062555 
+28       072156 
+28       067151 
+28       020547 
+28       005015 
+28       000000 
+30 00144 000000 	0 ; flag word to end string
+31              	
+32              	.end start
+
+DOCHAR 000102        1/09
+DONE   000112        1/18
+HELINC 000000?       1/04
+PMSG   000117        1/25
+PUTC   000113        1/20
+START  000100        1/07

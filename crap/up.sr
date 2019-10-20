@@ -1,0 +1,16 @@
+        .TITL   UP
+
+               ; Test the auto increment location 20
+
+        .LOC 100
+        
+START:  LDA	0,COUNT
+	STA	0,20
+
+LOOP:   ISZ     20           ; and bump it skip if not done.
+        JMP     LOOP         ; go back and do it again....
+        HALT                 ; We're done - stop the CPU
+
+COUNT:  -256   ; Loop count
+
+        .END	START

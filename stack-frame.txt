@@ -1,0 +1,31 @@
+    /*        layout of system stack frame:
+
+            |               |    higher addresses
+            +---------------+
+            |    argN       |
+            |    ...        |
+            |    arg0       |    <- FP+4
+            +---------------+
+            |    link reg   |    <- FP+2 = SP after JSR
+            +===============+
+            |    saved FP   |    <- FP after prologue
+            +---------------+
+          / |    locals     |    <- FP-2
+framesize \ |    ...        |
+            +---------------+
+            |    saved regs |
+            |    ...        |    <- SP after prologue
+            +---------------+
+            |               |    lower addresses
+            
+            (Without a dedicated frame pointer, stack offset bookkeeping 
+            is unmanageable while parameters are being stacked for a CALL.)
+            
+            This layout is very similar to that used by RSX-11:
+            http://www.ibiblio.org/pub/academic/computer-science/history/pdp-11/language/decus-C/5,7/cx.rno
+            
+            See here for a survey of subroutine call frame conventions:
+            http://www.cs.clemson.edu/~mark/subroutines.html
+            http://www.cs.clemson.edu/~mark/subroutines/pdp11.html (PDP-11 specific)
+            and here http://cm.bell-labs.com/cm/cs/who/dmr/clcs.html (original PDP-11 C)
+    */
