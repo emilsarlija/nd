@@ -1,5 +1,19 @@
 README
 
+*** 20 OCTOBER 2019 ***
+
+I wrote this debugger/simulator back in 2007 as a way of alleviating boredom on
+the cheap in a foreign country. I had many big plans for it which never
+eventuated in the 12 years since I wrote it. As it stands, it allows you to run
+small programs, single step, examine registers, and disassemble memory.
+
+Yep, pretty basic stuff!
+
+My primary reason for uploading this to GitHub is so it can be seen should
+somebody be crazy enough to continue it.
+
+***********************
+
 This is the embryonic beginning of nd - a debugger/simulator,in the style of
 Borland Turbo Debugger, for the Data General Nova minicomputer.
 
